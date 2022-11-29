@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Sighting</title>
+</head>
+<body>
+    <h1>Sasquatch Websighting {{ session.user_name }}</h1>
+    <div>
+        <a href="/sightings/home">Dashboard</a>
+        <a href="/logout">Log Out</a>
+    </div>
+    <div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <form action="/new_sighting" method="post">
+        <div>
+            <label for="location">location</label>
+            <input type="text" name="location" id="location">
+        </div>
+        <div>
+            <label for="discription">What Happened:</label>
+            <textarea type="text" name="discription" id="discription" rows="10"></textarea>
+        </div>
+        <div>
+            <label for="sighting_date">Date Made:</label>
+            <input type="date" name="sighting_date" id="sighting_date">
+        </div>
+        <div>
+            <label for="number_of"># of Sasquatches:</label>
+            <input type="number" name="number_of" id="number_of" value="0">
+        </div>
+        <input type="hidden" name="user_id" value="{{session['user_id']}}">
+        <div>
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</body>
+</html>

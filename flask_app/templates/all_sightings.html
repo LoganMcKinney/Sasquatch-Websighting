@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Sightings</title>
+</head>
+<body>
+    <h1>Sasquatch Websighting {{ session.user_name }}</h1>
+    <div>
+        <a href="/sighting/create">Report a Sighting!</a>
+        <a href="/logout">Log Out</a>
+    </div>
+    <div>
+        <h2>Reported Sightings</h2>
+        {% for sighting in sightings: %}
+        <p>{{ sighting.location }} - {{ sighting.sighting_date }}</p>
+        <div>
+            <p>Reported by:{{ sighting.user.first_name }}{{ sighting.user.last_name }}</p>
+            {% if sighting.user.id != user.id: %}
+                <a href="/sighting/{{sighting.id}}">View</a>
+            {% endif %}
+            {% if sighting.user.id == user.id: %}
+                <a href="/sighting/edit/{{sighting.id}}">Edit</a>
+                <a href="/sighting/delete/{{sighting.id}}">Delete</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+</body>
+</html>
